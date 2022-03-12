@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+
+  <body class="page">
+    <div class="content">
+      <header class="header">
+        <img
+          class="logo header__logo"
+          src="./images/logo-white.svg"
+          alt="Логотип"
+        />
+      </header>
+      <main class="main">
+        <section class="profile">
+          <img
+            src="./images/сousteau-min.jpg"
+            alt="Аватар"
+            class="profile__avatar"
+          />
+          <div class="profile__content">
+            <div class="profile__wrapper">
+              <h2 class="profile__name">Жак-Ив Кусто</h2>
+              <button type="button" class="profile__button-edit"></button>
+            </div>
+            <p class="profile__profession">Исследователь океана</p>
+          </div>
+          <button type="button" class="profile__button-add"></button>
+        </section>
+
+        <section class="gallery">
+          <ul class="gallery__list">
+            <li class="gallery__item card">
+              <button type="button" class="card__button-trash"></button>
+              <img
+                src="./images/image_1-min.jpg"
+                alt="Плато Укок Горный Алтай"
+                class="card__image"
+              />
+              <div class="card__wrapper">
+                <h3 class="card__title">Плато Укок</h3>
+                <button type="button" class="card__button-like"></button>
+              </div>
+            </li>
+            <li class="gallery__item card">
+              <button type="button" class="card__button-trash"></button>
+              <img
+                src="./images/image_2-min.jpg"
+                alt="Гора Белуха Горный Алтай"
+                class="card__image"
+              />
+              <div class="card__wrapper">
+                <h3 class="card__title">Гора Белуха</h3>
+                <button type="button" class="card__button-like"></button>
+              </div>
+            </li>
+            <li class="gallery__item card">
+              <button type="button" class="card__button-trash"></button>
+              <img
+                src="./images/image_3-min.jpg"
+                alt="Река Катунь Горный Алтай"
+                class="card__image"
+              />
+              <div class="card__wrapper">
+                <h3 class="card__title">Река Катунь</h3>
+                <button type="button" class="card__button-like"></button>
+              </div>
+            </li>
+            <li class="gallery__item card">
+              <button type="button" class="card__button-trash"></button>
+              <img
+                src="./images/image_4-min.jpg"
+                alt="Каменные грибы Горный Алтай"
+                class="card__image"
+              />
+              <div class="card__wrapper">
+                <h3 class="card__title">Каменные грибы</h3>
+                <button type="button" class="card__button-like"></button>
+              </div>
+            </li>
+            <li class="gallery__item card">
+              <button type="button" class="card__button-trash"></button>
+              <img
+                src="./images/image_5-min.jpg"
+                alt="Мультинское озеро Горный Алтай"
+                class="card__image"
+              />
+              <div class="card__wrapper">
+                <h3 class="card__title">Мультинское озеро</h3>
+                <button type="button" class="card__button-like"></button>
+              </div>
+            </li>
+            <li class="gallery__item card">
+              <button type="button" class="card__button-trash"></button>
+              <img
+                src="./images/image_6-min.jpg"
+                alt="Гейзерное озеро Горный Алтай"
+                class="card__image"
+              />
+              <div class="card__wrapper">
+                <h3 class="card__title">Гейзерное озеро</h3>
+                <button type="button" class="card__button-like"></button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+      </footer>
+    </div>
+
+    <section class="popup" id="popup-edit-profile">
+      <div class="popup__container">
+        <button type="button" class="popup__button-close"></button>
+        <form class="popup__form" action="#" method="post">
+          <p class="popup__title">Редактировать профиль</p>
+          <label for="name" class="popup__label">
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="popup__input"
+              placeholder="Жак-Ив Кусто"
+              required
+            />
+          </label>
+          <label for="profession" class="popup__label">
+            <input
+              type="text"
+              name="profession"
+              id="profession"
+              class="popup__input"
+              placeholder="Исследователь океана"
+              required
+            />
+          </label>
+          <button type="submit" class="popup__button-save">Сохранить</button>
+        </form>
+      </div>
+    </section>
+    <script src="./script/script.js"></script>
+  </body>
+</html>
