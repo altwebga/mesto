@@ -13,8 +13,12 @@
 
 ### Доделать
 
-:white_check_mark: Редактирования профиля.
-:black_square_button: Доваление фото.
-:black_square_button: Удаление фото.
-:black_square_button: Лайки.
-:black_square_button: Отправка измененеий на сервер.
+:white_check_mark: Редактирования профиля
+
+:black_square_button: Доваление фото
+
+:black_square_button: Удаление фото
+
+:black_square_button: Лайки
+
+:black_square_button: Отправка измененеий на сервер
