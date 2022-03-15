@@ -13,3 +13,12 @@
     transition: opacity .3s linear;
     cursor: pointer;
 }
+@media (max-width: 575.98px) {
+    .popup__button-close {
+        width: 20px;
+        height: 20px;
+        background-size: 20px;
+        top: -36px;
+        right: 0px;
+    }
+  }

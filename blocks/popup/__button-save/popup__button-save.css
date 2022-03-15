@@ -2,7 +2,7 @@
   width: 100%;
   padding: 14px;
   margin-top: 48px;
-  font-family: Inter;
+  font-family: "Inter", "Arial", "sans-serif";
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -17,4 +17,9 @@
 .popup__button-save:hover {
   background-color: rgba(0, 0, 0, 0.8);
   transition: opacity 0.3s linear;
+}
+@media (max-width: 575.98px) {
+  .popup__button-save {
+    font-size: 14px;
+  }
 }
