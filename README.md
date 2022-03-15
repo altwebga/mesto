@@ -13,7 +13,7 @@
 
 ### Доделать
 
-:white_check_mark: Редактирования профиля
+:white_check_mark: Редактирование профиля
 
 :black_square_button: Добавление фото
 
