@@ -7,3 +7,8 @@
   font-weight: 900;
   color: #000;
 }
+@media (max-width: 575.98px) {
+  .popup__title {
+    font-size: 18px;
+  }
+}
