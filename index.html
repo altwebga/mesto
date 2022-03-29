@@ -35,80 +35,7 @@
         </section>
 
         <section class="gallery">
-          <ul class="gallery__list">
-            <li class="gallery__item card">
-              <button type="button" class="card__button-trash"></button>
-              <img
-                src="./images/image_1-min.jpg"
-                alt="Плато Укок Горный Алтай"
-                class="card__image"
-              />
-              <div class="card__wrapper">
-                <h3 class="card__title">Плато Укок</h3>
-                <button type="button" class="card__button-like"></button>
-              </div>
-            </li>
-            <li class="gallery__item card">
-              <button type="button" class="card__button-trash"></button>
-              <img
-                src="./images/image_2-min.jpg"
-                alt="Гора Белуха Горный Алтай"
-                class="card__image"
-              />
-              <div class="card__wrapper">
-                <h3 class="card__title">Гора Белуха</h3>
-                <button type="button" class="card__button-like"></button>
-              </div>
-            </li>
-            <li class="gallery__item card">
-              <button type="button" class="card__button-trash"></button>
-              <img
-                src="./images/image_3-min.jpg"
-                alt="Река Катунь Горный Алтай"
-                class="card__image"
-              />
-              <div class="card__wrapper">
-                <h3 class="card__title">Река Катунь</h3>
-                <button type="button" class="card__button-like"></button>
-              </div>
-            </li>
-            <li class="gallery__item card">
-              <button type="button" class="card__button-trash"></button>
-              <img
-                src="./images/image_4-min.jpg"
-                alt="Каменные грибы Горный Алтай"
-                class="card__image"
-              />
-              <div class="card__wrapper">
-                <h3 class="card__title">Каменные грибы</h3>
-                <button type="button" class="card__button-like"></button>
-              </div>
-            </li>
-            <li class="gallery__item card">
-              <button type="button" class="card__button-trash"></button>
-              <img
-                src="./images/image_5-min.jpg"
-                alt="Мультинское озеро Горный Алтай"
-                class="card__image"
-              />
-              <div class="card__wrapper">
-                <h3 class="card__title">Мультинское озеро</h3>
-                <button type="button" class="card__button-like"></button>
-              </div>
-            </li>
-            <li class="gallery__item card">
-              <button type="button" class="card__button-trash"></button>
-              <img
-                src="./images/image_6-min.jpg"
-                alt="Гейзерное озеро Горный Алтай"
-                class="card__image"
-              />
-              <div class="card__wrapper">
-                <h3 class="card__title">Гейзерное озеро</h3>
-                <button type="button" class="card__button-like"></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="gallery__list"></ul>
         </section>
       </main>
 
@@ -119,7 +46,6 @@
 
     <section class="popup" id="popup-edit-profile">
       <div class="popup__container">
-        <div class="popup__content">
         <button type="button" class="popup__button-close"></button>
         <form name="edit-profile" class="popup__form" action="#" method="post">
           <h3 class="popup__title">Редактировать профиль</h3>
@@ -146,8 +72,58 @@
           <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
       </div>
+    </section>
+
+    <section class="popup" id="popup-add-photo">
+      <div class="popup__container">
+        <button type="button" class="popup__button-close"></button>
+        <form name="add-photo" class="popup__form" action="#" method="post">
+          <p class="popup__title">Новое место</p>
+          <label for="title" class="popup__label">
+            <input
+              type="text"
+              name="title"
+              id="title"
+              class="popup__input"
+              placeholder="Название"
+              required
+            />
+          </label>
+
+          <label for="link" class="popup__label">
+            <input
+              type="url"
+              name="link"
+              id="link"
+              class="popup__input"
+              placeholder="Ссылка на картинку"
+              required
+            />
+          </label>
+          <button type="submit" class="popup__button-save">Сохранить</button>
+        </form>
       </div>
     </section>
+
+    <section class="popup" id="popup-show-photo">
+      <figure class="popup__figure">
+        <button type="button" class="popup__button-close"></button>
+        <img class="popup__image" src="#" alt="" />
+        <figcaption class="popup__caption"></figcaption>
+      </figure>
+    </section>
+
+    <template id="card-template">
+      <li class="gallery__item card" data-setlike="false">
+        <button type="button" class="card__button-trash"></button>
+        <img src="#" alt="" class="card__image" />
+        <div class="card__wrapper">
+          <h3 class="card__title"></h3>
+          <button type="button" class="card__button-like"></button>
+        </div>
+      </li>
+    </template>
+    <script src="./script/initcard.js"></script>
     <script src="./script/script.js"></script>
   </body>
 </html>

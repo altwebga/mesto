@@ -15,10 +15,10 @@
 
 :white_check_mark: Редактирование профиля
 
-:black_square_button: Добавление фото
+:white_check_mark: Добавление карточки
 
-:black_square_button: Удаление фото
+:white_check_mark: Удаление карточки
 
-:black_square_button: Лайки
+:white_check_mark: Лайки
 
 :black_square_button: Отправка измененеий на сервер
