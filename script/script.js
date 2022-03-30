@@ -40,7 +40,7 @@ const createCardElement = ({ name, link }) => {
   return newCard;
 };
 
-const CreateCards = (cards) =>
+const createCards = (cards) =>
   cards.reverse().forEach((card) => gallery.append(createCardElement(card)));
 
 const addCard = () => {
@@ -136,4 +136,4 @@ closeButtonPopupEdit.addEventListener("click", closeEditProfilePopup);
 closeButtonPopupAdd.addEventListener("click", closeAddPhotoPopup);
 closeButtonPopupPhoto.addEventListener("click", closeShowPhotoPopup);
 
-CreateCards(initialCards);
+createCards(initialCards);
