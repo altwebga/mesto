@@ -132,8 +132,16 @@ popupImage.addEventListener("click", openShowPhotoPopup);
 formPopupEdit.addEventListener("submit", processProfileEditForm);
 formPopupAdd.addEventListener("submit", sendingFormChanges);
 
-closeButtonPopupEdit.addEventListener("click", closeEditProfilePopup);
-closeButtonPopupAdd.addEventListener("click", closeAddPhotoPopup);
-closeButtonPopupPhoto.addEventListener("click", closeShowPhotoPopup);
+//closeButtonPopupEdit.addEventListener("click", closeEditProfilePopup);
+//closeButtonPopupAdd.addEventListener("click", closeAddPhotoPopup);
+//closeButtonPopupPhoto.addEventListener("click", closeShowPhotoPopup);
+const popups = document.querySelectorAll('.popup')
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+       if (evt.target.classList.contains('popup__button-close')) {
+          closePopup(popup)
+        }
+    })
+})
 
 createCards(initialCards);
