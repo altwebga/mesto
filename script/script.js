@@ -7,16 +7,13 @@ const gallery = document.querySelector(".gallery__list");
 const cardTemplate = document.querySelector("#card-template").content;
 const popupEdit = document.querySelector("#popup-edit-profile");
 const formPopupEdit = popupEdit.querySelector(".popup__form");
-const closeButtonPopupEdit = popupEdit.querySelector(".popup__button-close");
 const inputName = popupEdit.querySelector("#name");
 const inputprofession = popupEdit.querySelector("#profession");
 const popupAdd = document.querySelector("#popup-add-photo");
 const formPopupAdd = popupAdd.querySelector(".popup__form");
-const closeButtonPopupAdd = popupAdd.querySelector(".popup__button-close");
 const inputTitle = popupAdd.querySelector("#title");
 const inputLink = popupAdd.querySelector("#link");
 const popupShow = document.querySelector("#popup-show-photo");
-const closeButtonPopupPhoto = popupShow.querySelector(".popup__button-close");
 const popupImage = popupShow.querySelector(".popup__image");
 const popupCaption = popupShow.querySelector(".popup__caption");
 
@@ -121,20 +118,6 @@ const openShowPhotoPopup = (evt) => {
   openPopup(popupShow);
 };
 
-const closeEditProfilePopup = () => closePopup(popupEdit);
-const closeAddPhotoPopup = () => closePopup(popupAdd);
-const closeShowPhotoPopup = () => closePopup(popupShow);
-
-buttonEdit.addEventListener("click", openEditProfilePopup);
-buttonAddCard.addEventListener("click", openAddPhotoPopup);
-popupImage.addEventListener("click", openShowPhotoPopup);
-
-formPopupEdit.addEventListener("submit", processProfileEditForm);
-formPopupAdd.addEventListener("submit", sendingFormChanges);
-
-//closeButtonPopupEdit.addEventListener("click", closeEditProfilePopup);
-//closeButtonPopupAdd.addEventListener("click", closeAddPhotoPopup);
-//closeButtonPopupPhoto.addEventListener("click", closeShowPhotoPopup);
 const popups = document.querySelectorAll('.popup')
 popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
@@ -143,5 +126,12 @@ popups.forEach((popup) => {
         }
     })
 })
+
+buttonEdit.addEventListener("click", openEditProfilePopup);
+buttonAddCard.addEventListener("click", openAddPhotoPopup);
+popupImage.addEventListener("click", openShowPhotoPopup);
+
+formPopupEdit.addEventListener("submit", processProfileEditForm);
+formPopupAdd.addEventListener("submit", sendingFormChanges);
 
 createCards(initialCards);
