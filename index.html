@@ -47,7 +47,7 @@
     <section class="popup" id="popup-edit-profile">
       <div class="popup__container">
         <button type="button" class="popup__button-close"></button>
-        <form name="edit-profile" class="popup__form" action="#" method="post">
+        <form name="edit-profile" class="popup__form" action="#" method="post"novalidate>
           <h3 class="popup__title">Редактировать профиль</h3>
           <label for="name" class="popup__label">
             <input
@@ -56,8 +56,10 @@
               id="name"
               class="popup__input"
               placeholder="Жак-Ив Кусто"
-              required
-            />
+              minlength="2"
+              maxlength="40"
+              required>
+            <p class="popup__error" id="name-error">Вы пропустили это поле.</p>
           </label>
           <label for="profession" class="popup__label">
             <input
@@ -66,8 +68,10 @@
               id="profession"
               class="popup__input"
               placeholder="Исследователь океана"
-              required
-            />
+              minlength="2"
+              maxlength="200"
+              required>
+            <p class="popup__error" id="profession-error">Вы пропустили это поле.</p>
           </label>
           <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
@@ -77,7 +81,7 @@
     <section class="popup" id="popup-add-photo">
       <div class="popup__container">
         <button type="button" class="popup__button-close"></button>
-        <form name="add-photo" class="popup__form" action="#" method="post">
+        <form name="add-photo" class="popup__form" action="#" method="post" novalidate>
           <p class="popup__title">Новое место</p>
           <label for="title" class="popup__label">
             <input
@@ -86,8 +90,10 @@
               id="title"
               class="popup__input"
               placeholder="Название"
-              required
-            />
+              minlength="2"
+              maxlength="30"
+              required>
+              <p class="popup__error" id="title-error">Вы пропустили это поле.</p>
           </label>
 
           <label for="link" class="popup__label">
@@ -99,6 +105,7 @@
               placeholder="Ссылка на картинку"
               required
             />
+            <p class="popup__error" id="link-error">Введите адрес сайта.</p>
           </label>
           <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
@@ -125,5 +132,6 @@
     </template>
     <script src="./script/initСard.js"></script>
     <script src="./script/script.js"></script>
+    <script src="./script/validate.js"></script>
   </body>
 </html>
