@@ -8,7 +8,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 const popupEdit = document.querySelector("#popup-edit-profile");
 const formPopupEdit = popupEdit.querySelector(".popup__form");
 const inputName = popupEdit.querySelector("#name");
-const inputprofession = popupEdit.querySelector("#profession");
+const inputProfession = popupEdit.querySelector("#profession");
 const popupAdd = document.querySelector("#popup-add-photo");
 const formPopupAdd = popupAdd.querySelector(".popup__form");
 const inputTitle = popupAdd.querySelector("#title");
@@ -71,7 +71,7 @@ const toggleLike = (evt) => {
 
 const editProfileData = () => {
   const name = inputName.value;
-  const profession = inputprofession.value;
+  const profession = inputProfession.value;
 
   if (name !== profileName.textContent) {
     profileName.textContent = name;
@@ -97,25 +97,32 @@ const sendingFormChanges = (evt) => {
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeEsc);
+  popup.addEventListener("mousedown", closeClick);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', closePopupEscBtn);
+  document.removeEventListener("keydown", closeEsc);
+  popup.removeEventListener("mousedown", closeClick);
 };
 
-const closePopupEscBtn = evt => {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(closePopup);
-  };
+const closeEsc = (evt) => {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
+    closePopup(popupOpened);
+  }
 };
 
-
+const closeClick = (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget);
+  }
+};
 
 const openEditProfilePopup = () => {
   inputName.value = profileName.textContent;
-  inputprofession.value = profileProfession.textContent;
+  inputProfession.value = profileProfession.textContent;
   openPopup(popupEdit);
 };
 
