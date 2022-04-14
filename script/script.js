@@ -56,18 +56,8 @@ const deleteCard = (evt) => {
 
 const toggleLike = (evt) => {
   const like = evt.target;
-  const card = like.closest(".card");
-  const cardStatus = card.dataset.setlike;
-
-  if (cardStatus === "false") {
-    card.dataset.setlike = "true";
-    like.classList.add("like-active");
-  }
-  if (cardStatus === "true") {
-    card.dataset.setlike = "false";
-    like.classList.remove("like-active");
-  }
-};
+  like.classList.toggle('like-active')
+}; 
 
 const editProfileData = () => {
   const name = inputName.value;
