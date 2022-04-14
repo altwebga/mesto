@@ -23,16 +23,6 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (config, inputList, button) => {
-  if (hasInvalidInput(inputList)) {
-    button.setAttribute("disabled", true);
-    button.classList.add(config.inactiveButtonClass);
-  } else {
-    button.removeAttribute("disabled");
-    button.classList.remove(config.inactiveButtonClass);
-  }
-};
-
 const setEventListeners = (config, form) => {
   const inputList = Array.from(form.querySelectorAll(config.inputSelector));
   const button = form.querySelector(config.submitButtonSelector);
@@ -42,6 +32,16 @@ const setEventListeners = (config, form) => {
       toggleButtonState(config, inputList, button);
     });
   });
+};
+
+const toggleButtonState = (config, inputList, button) => {
+  if (hasInvalidInput(inputList)) {
+    button.setAttribute("disabled", true);
+    button.classList.add(config.inactiveButtonClass);
+  } else {
+    button.removeAttribute("disabled");
+    button.classList.remove(config.inactiveButtonClass);
+  }
 };
 
 const enableValidation = (config) => {
