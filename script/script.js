@@ -137,7 +137,6 @@ popups.forEach((popup) => {
 
 buttonAddCard.addEventListener('click', () => {
   openAddPhotoPopup();
-  buttonSave.setAttribute("disabled", true);
 });
 
 buttonEdit.addEventListener("click", openEditProfilePopup);
