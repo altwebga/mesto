@@ -83,7 +83,7 @@ const sendingFormChanges = (evt) => {
   addCard();
   inputTitle.value = "";
   inputLink.value = "";
-   closePopup(popupAdd);
+  closePopup(popupAdd);
 };
 
 const openPopup = (popup) => {
@@ -137,6 +137,7 @@ popups.forEach((popup) => {
 
 buttonAddCard.addEventListener('click', () => {
   openAddPhotoPopup();
+  disableButton();
 });
 
 buttonEdit.addEventListener("click", openEditProfilePopup);
