@@ -15,3 +15,6 @@
   cursor: pointer;
   flex-shrink: 0;
 }
+.card__button-trash:hover{
+  opacity: 0.5;
+}
