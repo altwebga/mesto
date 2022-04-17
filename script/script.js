@@ -83,15 +83,14 @@ const sendingFormChanges = (evt) => {
   addCard();
   inputTitle.value = "";
   inputLink.value = "";
-  disableButton();
   closePopup(popupAdd);
 };
 
-const openPopup = (popup) => {
+function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeEsc);
   popup.addEventListener("mousedown", closeClick);
-};
+}
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
@@ -138,7 +137,7 @@ popups.forEach((popup) => {
 
 buttonAddCard.addEventListener('click', () => {
   openAddPhotoPopup();
-  });
+ });
 
 buttonEdit.addEventListener("click", openEditProfilePopup);
 //buttonAddCard.addEventListener("click", openAddPhotoPopup);

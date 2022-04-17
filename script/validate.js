@@ -33,30 +33,23 @@ const setEventListeners = (config, form) => {
     });
   });
 };
-const enableButton = (button, inactiveButtonClass) => {
-  button.removeAttribute("disabled");
-  button.classList.remove(inactiveButtonClass);
-};
-
-const disableButton = (button, inactiveButtonClass) => {
-  button.setAttribute("disabled");
-  button.classList.add(inactiveButtonClass);
-};
 
 const setButtonState = (config, inputList, button) => {
   if (isValid(inputList)) {
-    disableButton = (button, inactiveButtonClass);
+    button.setAttribute("disabled", true);
+    button.classList.add(config.inactiveButtonClass);
   } else {
-    enableButton = (button, inactiveButtonClass);
+    button.removeAttribute("disabled");
+    button.classList.remove(config.inactiveButtonClass);
   }
 };
 
-const enableValidation = (config) => {
+function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((form) => {
     setEventListeners(config, form);
   });
-};
+}
 
 enableValidation({
   formSelector: ".popup__form",
