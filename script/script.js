@@ -82,6 +82,7 @@ const sendingFormChanges = (evt) => {
   addCard();
   inputTitle.value = "";
   inputLink.value = "";
+  disableButton();
   closePopup(popupAdd);
 };
 

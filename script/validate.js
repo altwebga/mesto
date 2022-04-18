@@ -34,13 +34,21 @@ const setEventListeners = (config, form) => {
   });
 };
 
+const disableButton = (config, button) => {
+  button.setAttribute("disabled", true);
+  button.classList.add(config.inactiveButtonClass);
+}
+
+const enableButton = (config, button) => {
+  button.removeAttribute("disabled");
+  button.classList.remove(config.inactiveButtonClass);
+}
+
 const toggleButtonState = (config, inputList, button) => {
   if (hasInvalidInput(inputList)) {
-    button.setAttribute("disabled", true);
-    button.classList.add(config.inactiveButtonClass);
+    disableButton(config, button);
   } else {
-    button.removeAttribute("disabled");
-    button.classList.remove(config.inactiveButtonClass);
+    enableButton(config, button);
   }
 };
 
