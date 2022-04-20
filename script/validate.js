@@ -1,11 +1,9 @@
 const setInputValid = (config, errorMessage, input) => {
   errorMessage.textContent = "";
-  // input.classList.remove(config.inputErrorClass);
 };
 
 const setInputInvalid = (config, errorMessage, input) => {
   errorMessage.textContent = input.validationMessage;
-  // input.classList.add(config.inputErrorClass);
 };
 
 const checkInputValidity = (config, form, input) => {
@@ -37,12 +35,12 @@ const setEventListeners = (config, form) => {
 const disableButton = (inactiveButtonClass, button) => {
   button.disabled = true;
   button.classList.add(inactiveButtonClass);
-}
+};
 
 const enableButton = (inactiveButtonClass, button) => {
   button.disabled = false;
   button.classList.remove(inactiveButtonClass);
-}
+};
 
 const toggleButtonState = (config, inputList, button) => {
   if (hasInvalidInput(inputList)) {
