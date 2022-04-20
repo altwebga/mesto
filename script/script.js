@@ -64,8 +64,8 @@ const deleteCard = (evt) => {
 
 const toggleLike = (evt) => {
   const like = evt.target;
-  like.classList.toggle('like-active')
-}; 
+  like.classList.toggle("like-active");
+};
 
 const editProfileData = () => {
   const name = inputName.value;
