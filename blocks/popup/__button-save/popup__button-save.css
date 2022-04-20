@@ -13,11 +13,13 @@
   border: none;
   border-radius: 2px;
   cursor: pointer;
+  transition: background-color 0.3s linear;
 }
-.popup__button-save:hover {
+
+.popup__button-save:not([disabled]):hover {
   background-color: rgba(0, 0, 0, 0.8);
-  transition: opacity 0.3s linear;
 }
+
 @media (max-width: 575.98px) {
   .popup__button-save {
     font-size: 14px;

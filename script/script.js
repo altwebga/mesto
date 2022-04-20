@@ -16,6 +16,14 @@ const inputLink = popupAdd.querySelector("#link");
 const popupShow = document.querySelector("#popup-show-photo");
 const popupImage = popupShow.querySelector(".popup__image");
 const popupCaption = popupShow.querySelector(".popup__caption");
+const configFormValidate = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-save",
+  inactiveButtonClass: "popup__button-save_disabled",
+  inputErrorClass: "popup__error",
+  errorClass: "popup__error_visible",
+};
 
 const createCardElement = ({ name, link }) => {
   const newCard = cardTemplate.querySelector(".card").cloneNode(true);
@@ -77,11 +85,14 @@ const processProfileEditForm = (evt) => {
   closePopup(popupEdit);
 };
 
-const sendingFormChanges = (evt) => {
+const sendingFormChanges = (evt, config) => {
+  const formNode = evt.target;
+  const buttonFormNode = formNode.querySelector(config.submitButtonSelector);
+
   evt.preventDefault();
   addCard();
-  evt.target.reset();
-  //disableButton();
+  formNode.reset();
+  disableButton(config.inactiveButtonClass, buttonFormNode);
   closePopup(popupAdd);
 };
 
@@ -139,6 +150,9 @@ buttonAddCard.addEventListener("click", openAddPhotoPopup);
 popupImage.addEventListener("click", openShowPhotoPopup);
 
 formPopupEdit.addEventListener("submit", processProfileEditForm);
-formPopupAdd.addEventListener("submit", sendingFormChanges);
+formPopupAdd.addEventListener("submit", (evt) => {
+  sendingFormChanges(evt, configFormValidate);
+});
 
 createCards(initialCards);
+enableValidation(configFormValidate);
