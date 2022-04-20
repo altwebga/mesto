@@ -80,9 +80,8 @@ const processProfileEditForm = (evt) => {
 const sendingFormChanges = (evt) => {
   evt.preventDefault();
   addCard();
-  inputTitle.value = "";
-  inputLink.value = "";
-  disableButton();
+  evt.target.reset();
+  //disableButton();
   closePopup(popupAdd);
 };
 
