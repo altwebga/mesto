@@ -1,8 +1,8 @@
-class Card {
+export class Card {
     constructor(title, link) {
         this._title = title;
         this._link = link;
-
+        this._cardSelector = cardSelector;
     }
 
     _getTemplate() {
