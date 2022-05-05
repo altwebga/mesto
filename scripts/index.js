@@ -1,3 +1,9 @@
+//импорт
+import initialCards from "./initialCards.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
+//переменные
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile__name");
 const profileProfession = profile.querySelector(".profile__profession");
@@ -16,7 +22,8 @@ const inputLink = popupAdd.querySelector("#link");
 const popupShow = document.querySelector("#popup-show-photo");
 const popupImage = popupShow.querySelector(".popup__image");
 const popupCaption = popupShow.querySelector(".popup__caption");
-const configFormValidate = {
+//конфигурация
+const configFormValidate= {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button-save",
@@ -25,25 +32,19 @@ const configFormValidate = {
   errorClass: "popup__error_visible",
 };
 
-const createCardElement = ({ name, link }) => {
-  const newCard = cardTemplate.querySelector(".card").cloneNode(true);
+//Валидации формы редактирования профиля
+const formProfileValidate = new FormValidator(configFormValidate, popupEdit);
+formProfileValidate.enableValidation();
 
-  const image = newCard.querySelector(".card__image");
-  image.alt = name;
-  image.src = link;
-  image.addEventListener("click", openShowPhotoPopup);
+//Валидации формы добавления карточки
+const formAddCardValidate = new FormValidator(configFormValidate, popupAdd);
+formAddCardValidate.enableValidation();
 
-  const title = newCard.querySelector(".card__title");
-  title.textContent = name;
-
-  const like = newCard.querySelector(".card__button-like");
-  like.addEventListener("click", toggleLike);
-
-  const trash = newCard.querySelector(".card__button-trash");
-  trash.addEventListener("click", deleteCard);
-
-  return newCard;
-};
+//Функция отрисовки карточек из исходного массива
+initialCards.forEach(initCard => {
+  const createdCard = new Card(initCard, '#cards-template');
+  renderCard(createdCard.generateCard(), cardList);
+});
 
 const createCards = (cards) =>
   cards.reverse().forEach((card) => gallery.append(createCardElement(card)));
@@ -55,16 +56,6 @@ const addCard = () => {
   };
 
   gallery.prepend(createCardElement(newCardData));
-};
-
-const deleteCard = (evt) => {
-  const card = evt.target.closest(".card");
-  card.remove();
-};
-
-const toggleLike = (evt) => {
-  const like = evt.target;
-  like.classList.toggle("like-active");
 };
 
 const editProfileData = () => {
@@ -85,14 +76,14 @@ const processProfileEditForm = (evt) => {
   closePopup(popupEdit);
 };
 
-const sendingFormChanges = (evt, config) => {
+const sendingFormChanges = (evt, configFormValidate) => {
   const formNode = evt.target;
-  const buttonFormNode = formNode.querySelector(config.submitButtonSelector);
+  const buttonFormNode = formNode.querySelector(configFormValidate.submitButtonSelector);
 
   evt.preventDefault();
   addCard();
   formNode.reset();
-  disableButton(config.inactiveButtonClass, buttonFormNode);
+  disableButton(configFormValidate.inactiveButtonClass, buttonFormNode);
   closePopup(popupAdd);
 };
 
@@ -129,12 +120,7 @@ const openEditProfilePopup = () => {
 
 const openAddPhotoPopup = () => openPopup(popupAdd);
 
-const openShowPhotoPopup = (evt) => {
-  popupCaption.textContent = evt.target.alt;
-  popupImage.src = evt.target.src;
-  popupImage.alt = evt.target.alt;
-  openPopup(popupShow);
-};
+
 
 const popups = document.querySelectorAll(".popup");
 popups.forEach((popup) => {
