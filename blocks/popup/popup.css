@@ -1,5 +1,4 @@
 .popup {
-  transition: all 0.5s ease;
 	opacity: 0;
 	visibility: hidden;
   pointer-events: none;
@@ -12,4 +11,8 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-property: visibility, opacity;
+  z-index: 2;
 }
