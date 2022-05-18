@@ -98,12 +98,12 @@
       </div>
     </section>
 
-    <section class="popup popup_add-photo" id="popup-add-photo">
+    <section class="popup popup_add-card" id="popup-add-card">
       <div class="popup__container">
         <button type="button" class="popup__button-close"></button>
         <form
-          name="add-photo"
-          class="popup__form popup__form_add-photo"
+          name="add-card"
+          class="popup__form popup__form_add-card"
           action="#"
           method="post"
           novalidate
@@ -114,7 +114,7 @@
               type="text"
               name="title"
               id="title"
-              class="popup__input"
+              class="popup__input popup__input-title"
               placeholder="Название"
               minlength="2"
               maxlength="30"
@@ -131,7 +131,7 @@
               type="url"
               name="link"
               id="link"
-              class="popup__input"
+              class="popup__input popup__input-link"
               placeholder="Ссылка на картинку"
               required
             />
@@ -151,7 +151,7 @@
       </div>
     </section>
 
-    <section class="popup popup_show-photo" id="popup-show-photo">
+    <section class="popup popup_show-card" id="popup-show-card">
       <figure class="popup__figure">
         <button type="button" class="popup__button-close"></button>
         <img class="popup__image" src="#" alt="" />
@@ -175,4 +175,3 @@
     <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
- 

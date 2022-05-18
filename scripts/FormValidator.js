@@ -1,12 +1,14 @@
 export default class FormValidator {
-  constructor({config, formElement, callbackSubmit}) {
+	_config = null;
+	_formElement = null;
+
+  constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
-    this._enableValidation(this._config, formElement, callbackSubmit);
   }
 
-  _enableValidation(config, formElement, callbackSubmit) {
-    this._setEventListeners(config, formElement, callbackSubmit);
+  enableValidation() {
+    this._setEventListeners(this._config, this._formElement);
   }
 
   _setInputValid(config, errorMessage, input) {
@@ -50,15 +52,15 @@ export default class FormValidator {
     }
   }
 
-  _getInputsValue(inputList) {
-    const obj = {};
-    for (const item of inputList) {
-      obj[item.id] = item.value;
-    }
-    return obj;
-  }
+  // _getInputsValue(inputList) {
+  //   const obj = {};
+  //   for (const item of inputList) {
+  //     obj[item.id] = item.value;
+  //   }
+  //   return obj;
+  // }
 
-  _setEventListeners(config, formElement, callbackSubmit) {
+  _setEventListeners(config, formElement) {
     const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
     const button = formElement.querySelector(config.submitButtonSelector);
     inputList.forEach((input) => {
@@ -68,13 +70,13 @@ export default class FormValidator {
       });
     });
 
-    formElement.addEventListener('submit', event => {
-      event.preventDefault();
-      const inputsValue = this._getInputsValue(inputList);
+    // formElement.addEventListener('submit', event => {
+    //   event.preventDefault();
+    //   const inputsValue = this._getInputsValue(inputList);
 
-      callbackSubmit(inputsValue);
-      this._disableButton(config.inactiveButtonClass, button);
-    });
+    //   callbackSubmit(inputsValue);
+    //   this._disableButton(config.inactiveButtonClass, button);
+    // });
   }
-  
+
 }
