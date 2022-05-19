@@ -24,6 +24,7 @@ export default class Popup {
 			this._closePopup();
 		});
 	}
+
 	// открыть Popup
 	_openPopup() {
 		this._popup.classList.add("popup_opened");
@@ -33,6 +34,11 @@ export default class Popup {
 	}
 	// функция
 	_openPopupExtraFunc() {}
+
+	closePopup() {
+		this._closePopup();
+	}
+
 	// закрыть Popup
 	_closePopup() {
 		this._popup.classList.remove("popup_opened");
@@ -42,9 +48,6 @@ export default class Popup {
 	}
 
 	_closePopupExtraFunc() {}
-
-	//открытие фото
-	_openPopupPhoto() {}
 
 	_closeEsc = (evt) => {
 		if (evt.key === "Escape") {

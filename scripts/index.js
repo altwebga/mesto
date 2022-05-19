@@ -16,12 +16,16 @@ import {
 	popupFormEditProfile,
 	popupAddCard,
 	buttonAddCard,
+	popupShowCard,
 	popupInputTitle,
 	popupInputLink,
 	popupFormAddCard
 } from "./constants.js";
 import Preload from "./Preload.js";
 import PopupAddCard from "./PopupAddCard.js";
+import PopupPhotoCard from "./PopupPhotoCard.js";
+import FormHandlerAddCard from "./FormHandlerAddCard.js";
+import FormHandlerEditProfile from "./FormHandlerEditProfile.js";
 
 new Preload();
 
@@ -41,6 +45,11 @@ function initCards(initialCards) {
 		);
 		const cardNode = card.generateCard();
 		galleryList.prepend(cardNode);
+		const cardImageNode = cardNode.querySelector('.card__image');
+		const instancePopupPhotoCard = new PopupPhotoCard(popupShowCard, cardImageNode, {
+			cardNode
+		});
+		instancePopupPhotoCard.init();
 	});
 }
 
@@ -55,3 +64,19 @@ const instancePopupEditProfile = new PopupEditProfile(popupEdit, buttonEdit, {
 	inputName, inputProfession, profileName, profileProfession
 });
 instancePopupEditProfile.init();
+
+
+const instanceFormHandlerAddCard = new FormHandlerAddCard(popupFormAddCard, {
+	galleryList,
+	instancePopupAddCard,
+	popupShowCard
+});
+instanceFormHandlerAddCard.init();
+
+const instanceFormHandlerEditProfile = new FormHandlerEditProfile(popupFormEditProfile, {
+	profileName,
+	profileProfession,
+	instancePopupEditProfile
+});
+instanceFormHandlerEditProfile.init();
+

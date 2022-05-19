@@ -1,4 +1,3 @@
-import FormValidator from "./FormValidator.js";
 import Popup from "./Popup.js";
 
 export default class PopupAddCard extends Popup {
@@ -28,5 +27,10 @@ export default class PopupAddCard extends Popup {
 		for (const popupError of this._popupErrors) {
 			popupError.textContent = "";
 		}
+	}
+
+	_disableButtonSave() {
+		this._buttonSave.classList.add("popup__button-save_disabled");
+		this._buttonSave.disabled = true;
 	}
 }

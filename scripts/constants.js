@@ -16,9 +16,9 @@ export const popupInputTitle = popupAddCard.querySelector(
 	".popup__input-title"
 );
 export const popupInputLink = popupAddCard.querySelector(".popup__input-link");
-export const popupShow = document.querySelector("#popup-show-card");
-export const popupImage = popupShow.querySelector(".popup__image");
-export const popupCaption = popupShow.querySelector(".popup__caption");
+export const popupShowCard = document.querySelector("#popup-show-card");
+export const popupImage = popupShowCard.querySelector(".popup__image");
+export const popupCaption = popupShowCard.querySelector(".popup__caption");
 export const popupFormEditProfile = document.querySelector(
 	".popup__form_edit-profile"
 );
