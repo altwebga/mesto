@@ -7,16 +7,15 @@ export default class PopupEditProfile extends Popup {
 	_profileProfession = null;
 
 	constructor(popup, buttonOpen, options) {
-
 		super(popup, buttonOpen);
 
-		const { inputName, inputProfession, profileName, profileProfession } = options;
+		const { inputName, inputProfession, profileName, profileProfession } =
+			options;
 
 		this._inputName = inputName;
 		this._inputProfession = inputProfession;
 		this._profileName = profileName;
 		this._profileProfession = profileProfession;
-
 	}
 
 	_openPopupExtraFunc() {
@@ -28,5 +27,4 @@ export default class PopupEditProfile extends Popup {
 		this._inputName.value = this._profileName.textContent;
 		this._inputProfession.value = this._profileProfession.textContent;
 	}
-
 }

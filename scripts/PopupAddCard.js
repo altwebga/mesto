@@ -10,7 +10,7 @@ export default class PopupAddCard extends Popup {
 
 		const { form } = options;
 
-		this._popupErrors = this._popup.querySelectorAll('.popup__error');
+		this._popupErrors = this._popup.querySelectorAll(".popup__error");
 		this._form = form;
 	}
 
@@ -26,8 +26,7 @@ export default class PopupAddCard extends Popup {
 
 	_clearErrorMessages() {
 		for (const popupError of this._popupErrors) {
-			popupError.textContent = '';
+			popupError.textContent = "";
 		}
 	}
-
 }

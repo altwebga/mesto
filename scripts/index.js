@@ -33,7 +33,6 @@ const formValidatorAddCard = new FormValidator(configFormValidate, popupFormAddC
 formValidatorAddCard.enableValidation();
 
 //Функция отрисовки карточек из исходного массива
-
 function initCards(initialCards) {
 	initialCards.forEach((initCard) => {
 		const card = new Card(
@@ -46,13 +45,6 @@ function initCards(initialCards) {
 }
 
 initCards(initialCards);
-
-// formPopupEdit.addEventListener("submit", processProfileEditForm);
-// formPopupAdd.addEventListener("submit", (evt) => {
-//   sendingFormChanges(evt, configFormValidate);
-// });
-
-
 
 const instancePopupAddCard = new PopupAddCard(popupAddCard, buttonAddCard, {
 	form: popupFormAddCard
