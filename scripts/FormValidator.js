@@ -52,14 +52,6 @@ export default class FormValidator {
 		}
 	}
 
-	// _getInputsValue(inputList) {
-	//   const obj = {};
-	//   for (const item of inputList) {
-	//     obj[item.id] = item.value;
-	//   }
-	//   return obj;
-	// }
-
 	_setEventListeners(config, formElement) {
 		const inputList = Array.from(
 			formElement.querySelectorAll(config.inputSelector)
@@ -71,13 +63,5 @@ export default class FormValidator {
 				this._toggleButtonState(config, inputList, button);
 			});
 		});
-
-		// formElement.addEventListener('submit', event => {
-		//   event.preventDefault();
-		//   const inputsValue = this._getInputsValue(inputList);
-
-		//   callbackSubmit(inputsValue);
-		//   this._disableButton(config.inactiveButtonClass, button);
-		// });
 	}
 }

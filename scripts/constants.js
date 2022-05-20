@@ -10,27 +10,21 @@ export const popupEdit = document.querySelector("#popup-edit-profile");
 export const formPopupEdit = popupEdit.querySelector(".popup__form");
 export const inputName = popupEdit.querySelector("#name");
 export const inputProfession = popupEdit.querySelector("#profession");
-export const popupAddCard = document.querySelector("#popup-add-card");
-export const formPopupAdd = popupAddCard.querySelector(".popup__form");
-export const popupInputTitle = popupAddCard.querySelector(
-	".popup__input-title"
-);
-export const popupInputLink = popupAddCard.querySelector(".popup__input-link");
-export const popupShowCard = document.querySelector("#popup-show-card");
-export const popupImage = popupShowCard.querySelector(".popup__image");
-export const popupCaption = popupShowCard.querySelector(".popup__caption");
-export const popupFormEditProfile = document.querySelector(
-	".popup__form_edit-profile"
-);
-export const popupFormAddCard = popupAddCard.querySelector(
-	".popup__form_add-card"
-);
+export const popupAdd = document.querySelector("#popup-add-photo");
+export const formPopupAdd = popupAdd.querySelector(".popup__form");
+export const inputTitle = popupAdd.querySelector("#title");
+export const inputLink = popupAdd.querySelector("#link");
+export const popupShow = document.querySelector("#popup-show-photo");
+export const popupImage = popupShow.querySelector(".popup__image");
+export const popupCaption = popupShow.querySelector(".popup__caption");
+export const popupFormEditProfile = document.querySelector(".popup__form_edit-profile");
+export const popupFormAddPhoto = document.querySelector(".popup__form_add-photo");
 //конфигурация
 export const configFormValidate = {
-	formSelector: ".popup__form",
-	inputSelector: ".popup__input",
-	submitButtonSelector: ".popup__button-save",
-	inactiveButtonClass: "popup__button-save_disabled",
-	inputErrorClass: "popup__error",
-	errorClass: "popup__error_visible",
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-save",
+  inactiveButtonClass: "popup__button-save_disabled",
+  inputErrorClass: "popup__error",
+  errorClass: "popup__error_visible",
 };
