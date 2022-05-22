@@ -4,16 +4,12 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import {
   galleryList,
-  popupShow,
   configFormValidate,
   popupFormEditProfile,
   popupFormAddPhoto,
 	buttonEdit,
 	inputName,
-	inputLink,
 	inputProfession,
-	inputTitle,
-	profile,
 	profileName,
 	profileProfession,
 	popupEdit,
