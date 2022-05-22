@@ -22,7 +22,7 @@ import {
 	formPopupAdd,
 	formPopupEdit
 } from "./constants.js";
-
+// отключаем transition при загрузки страницы
 const initPreload = () => {
 	document.addEventListener('DOMContentLoaded', () => {
 		document.body.classList.remove('preload');
@@ -31,67 +31,11 @@ const initPreload = () => {
 
 const initCards = (initialCards) => {
   initialCards.forEach(initCard => {
-    const card = new Card(initCard, '#card-template', galleryList);
-		const cardNode = card.generateCard();
+		const { name, link } = initCard;
+		const cardNode = generateCard(name, link);
 		galleryList.prepend(cardNode);
-		initEventListenersPopupForCard(cardNode);
   });
 }
-
-// установка слушателей события для картинки карточки, которая открывает popup
-const initEventListenersPopupForCard = (cardNode) => {
-	const cardImageNode = cardNode.querySelector('.card__image');
-	cardImageNode.addEventListener('click', openPopupCard);
-};
-
-const openPopupCard = (evt) => {
-	const cardNode = evt.target.closest('.card');
-	const cardImageNode = evt.target;
-	const cardTitleNode = cardNode.querySelector('.card__title');
-	const popup = popupShow;
-	const popupImageNode = popup.querySelector('.popup__image');
-	const popupTextNode = popup.querySelector('.popup__caption');
-
-	popupImageNode.src = cardImageNode.src;
-	popupImageNode.alt = cardImageNode.alt;
-	popupTextNode.textContent = cardTitleNode.textContent;
-
-	openPopup(popup);
-};
-
-// const editProfileData = (data) => {
-//   const { name, profession } = data;
-
-//   if (name !== profileName.textContent) {
-//     profileName.textContent = name;
-//   }
-//   if (profession !== profileProfession.textContent) {
-//     profileProfession.textContent = profession;
-//   }
-// };
-
-const handlerClickPopupButtonClose = (evt) => {
-	const popup = evt.target.closest('.popup');
-	closePopup(popup);
-};
-
-const openPopup = (popup) => {
-	const popupButtonClose = popup.querySelector('.popup__button-close');
-
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", clickEsc);
-  popup.addEventListener("mousedown", clickOverlay);
-	popupButtonClose.addEventListener('click', handlerClickPopupButtonClose);
-};
-
-const closePopup = (popup) => {
-	const popupButtonClose = popup.querySelector('.popup__button-close');
-
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", clickEsc);
-  popup.removeEventListener("mousedown", clickOverlay);
-	popupButtonClose.removeEventListener('click', handlerClickPopupButtonClose);
-};
 
 const clickEsc = (evt) => {
   if (evt.key === "Escape") {
@@ -106,11 +50,37 @@ const clickOverlay = (evt) => {
   }
 };
 
+const handlerClickPopupButtonClose = (evt) => {
+	const popup = evt.target.closest('.popup');
+	closePopup(popup);
+};
+
+
+export const openPopup = (popup) => {
+	const popupButtonClose = popup.querySelector('.popup__button-close');
+
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", clickEsc);
+  popup.addEventListener("mousedown", clickOverlay);
+	popupButtonClose.addEventListener('click', handlerClickPopupButtonClose);
+}; 
+
+const closePopup = (popup) => {
+	const popupButtonClose = popup.querySelector('.popup__button-close');
+
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", clickEsc);
+  popup.removeEventListener("mousedown", clickOverlay);
+	popupButtonClose.removeEventListener('click', handlerClickPopupButtonClose);
+};
+
 const initSubmitHandlerFormAddCard = (formElement, options) => {
 
 	const {
 		galleryList,
-		popupAdd
+		popupAdd,
+		formValidatorAddPhoto,
+		configFormValidate
 	} = options;
 
 	const inputTitle = formElement.querySelector('.popup__input-title');
@@ -122,26 +92,26 @@ const initSubmitHandlerFormAddCard = (formElement, options) => {
 
 		const name = inputTitle.value;
 		const link = inputLink.value;
-		const card = new Card({ name, link }, "#card-template");
-		const cardNode = card.generateCard();
+		const cardNode = generateCard(name, link);
 
 		formElement.reset();
-		initEventListenersPopupForCard(cardNode);
-		disableButton(configFormValidate.inactiveButtonClass, buttonSubmit);
+		formValidatorAddPhoto.disableButton(configFormValidate.inactiveButtonClass, buttonSubmit);
 		galleryList.prepend(cardNode);
 		closePopup(popupAdd);
 	});
 };
 
+function generateCard(name, link) {
+	const card = new Card({ name, link }, "#card-template");
+	const cardNode = card.generateCard();
+
+	return cardNode;
+}
+
 const initEventListenersPopupAddCard = (buttonAddCard, popupAdd) => {
 	buttonAddCard.addEventListener("click", () => {
 		openPopup(popupAdd);
 	});
-};
-
-const disableButton = (inactiveButtonClass, button) => {
-	button.disabled = true;
-	button.classList.add(inactiveButtonClass);
 };
 
 const initEventListenersPopupEditProfile = (buttonEdit, popupEdit, options) => {
@@ -171,6 +141,7 @@ const initSubmitHandlerFormEditProfile = (formElement, options) => {
 		profileProfession,
 		popupEdit,
 		configFormValidate,
+		formValidatorAddPhoto
 	} = options;
 
 	formElement.addEventListener('submit', (event) => {
@@ -178,12 +149,11 @@ const initSubmitHandlerFormEditProfile = (formElement, options) => {
 
 		profileName.textContent = inputName.value;
 		profileProfession.textContent = inputProfession.value;
-		disableButton(configFormValidate.inactiveButtonClass, buttonSubmit);
+		formValidatorAddPhoto.disableButton(configFormValidate.inactiveButtonClass, buttonSubmit);
 		closePopup(popupEdit);
 	});
 
 };
-
 
 initPreload();
 
@@ -199,7 +169,9 @@ initCards(initialCards);
 initEventListenersPopupAddCard(buttonAddCard, popupAdd);
 initSubmitHandlerFormAddCard(formPopupAdd, {
 	galleryList,
-	popupAdd
+	popupAdd,
+	formValidatorAddPhoto,
+	configFormValidate
 });
 
 initEventListenersPopupEditProfile(buttonEdit, popupEdit, {
@@ -212,5 +184,6 @@ initSubmitHandlerFormEditProfile(formPopupEdit, {
 	profileName,
 	profileProfession,
 	popupEdit,
-	configFormValidate
+	configFormValidate,
+	formValidatorAddPhoto
 });

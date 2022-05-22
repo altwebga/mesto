@@ -1,3 +1,6 @@
+import { openPopup } from "./index.js";
+import { popupShow } from "./constants.js";
+
 export default class Card {
 	_name = null;
 	_link = null;
@@ -7,12 +10,19 @@ export default class Card {
 	_cardImage = null;
 	_cardButtonLike = null;
 	_cardButtonTrash = null;
+	_popupShow = null;
+	_popupImage = null;
+	_popupText = null;
 
   constructor(data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+		this._popupShow = popupShow;
+		this._popupImage = this._popupShow.querySelector('.popup__image');
+		this._popupText = this._popupShow.querySelector('.popup__caption');
   }
+
   //Получение разметки из HTML и клонирование элемента
   _getTemplate(cardSelector) {
     return document
@@ -45,20 +55,20 @@ export default class Card {
     this._card.remove();
 		this._card = null;
   }
+
   //открытие фото
-  // _openShowPhotoPopup = (evt) => {
-  //   popupCaption.textContent = this.name;
-  //   popupImage.src = this._link;
-  //   popupImage.alt = this.name;
-  //   openPopup(popupShow);
-  // };
+  _openShowPhotoPopup = () => {
+    this._popupText.textContent = this._name;
+    this._popupImage.src = this._link;
+    this._popupImage.alt = this._name;
+    openPopup(this._popupShow);
+  }
   // Слушатели Card
+
   _setEventListeners() {
     this._cardButtonLike.addEventListener("click", this._toggleLike);
     this._cardButtonTrash.addEventListener("click", this._deleteCard);
-    // this._card.querySelector(".card__image").addEventListener("click", () => {
-    //   this._openShowPhotoPopup();
-    // });
+		this._cardImage.addEventListener('click', this._openShowPhotoPopup);
   }
 
 
