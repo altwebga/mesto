@@ -76,12 +76,10 @@ const initSubmitHandlerFormAddCard = (formElement, options) => {
 		galleryList,
 		popupAdd,
 		formValidatorAddPhoto,
-		configFormValidate
 	} = options;
 
 	const inputTitle = formElement.querySelector('.popup__input-title');
 	const inputLink = formElement.querySelector('.popup__input-link');
-	const buttonSubmit = formElement.querySelector('.popup__button-save');
 
 	formElement.addEventListener('submit', (event) => {
 		event.preventDefault();
@@ -91,7 +89,7 @@ const initSubmitHandlerFormAddCard = (formElement, options) => {
 		const cardNode = generateCard(name, link);
 
 		formElement.reset();
-		formValidatorAddPhoto.disableButton(configFormValidate.inactiveButtonClass, buttonSubmit);
+		formValidatorAddPhoto.disableButton();
 		galleryList.prepend(cardNode);
 		closePopup(popupAdd);
 	});
@@ -130,14 +128,12 @@ const initSubmitHandlerFormEditProfile = (formElement, options) => {
 
 	const inputName = formElement.querySelector('.popup__input-name');
 	const inputProfession = formElement.querySelector('.popup__input-profession');
-	const buttonSubmit = formElement.querySelector('.popup__button-save');
 
 	const {
 		profileName,
 		profileProfession,
 		popupEdit,
-		configFormValidate,
-		formValidatorAddPhoto
+		formValidatorEditProfile
 	} = options;
 
 	formElement.addEventListener('submit', (event) => {
@@ -145,7 +141,7 @@ const initSubmitHandlerFormEditProfile = (formElement, options) => {
 
 		profileName.textContent = inputName.value;
 		profileProfession.textContent = inputProfession.value;
-		formValidatorAddPhoto.disableButton(configFormValidate.inactiveButtonClass, buttonSubmit);
+		formValidatorEditProfile.disableButton();
 		closePopup(popupEdit);
 	});
 
@@ -181,5 +177,5 @@ initSubmitHandlerFormEditProfile(formPopupEdit, {
 	profileProfession,
 	popupEdit,
 	configFormValidate,
-	formValidatorAddPhoto
+	formValidatorEditProfile
 });
