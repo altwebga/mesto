@@ -1,12 +1,10 @@
 export default class FormValidator {
 	_config = null;
 	_formElement = null;
-	_buttonSubmit =null;
 
 	constructor(config, formElement) {
 		this._config = config;
 		this._formElement = formElement;
-		this._buttonSubmit = this._formElement.querySelector(this._config.submitButtonSelector);
 	}
 
 	enableValidation() {
@@ -36,34 +34,50 @@ export default class FormValidator {
 		});
 	}
 
-	disableButton() {
-		this._buttonSubmit.disabled = true;
-		this._buttonSubmit.classList.add(this._config.inactiveButtonClass);
+	_disableButton(inactiveButtonClass, button) {
+		button.disabled = true;
+		button.classList.add(inactiveButtonClass);
 	}
 
-	_enableButton() {
-		this._buttonSubmit.disabled = false;
-		this._buttonSubmit.classList.remove(this._config.inactiveButtonClass);
+	_enableButton(inactiveButtonClass, button) {
+		button.disabled = false;
+		button.classList.remove(inactiveButtonClass);
 	}
 
-	_toggleButtonState(inputList) {
+	_toggleButtonState(config, inputList, button) {
 		if (this._hasInvalidInput(inputList)) {
-			this.disableButton();
+			this._disableButton(config.inactiveButtonClass, button);
 		} else {
-			this._enableButton();
+			this._enableButton(config.inactiveButtonClass, button);
 		}
 	}
+
+	// _getInputsValue(inputList) {
+	//   const obj = {};
+	//   for (const item of inputList) {
+	//     obj[item.id] = item.value;
+	//   }
+	//   return obj;
+	// }
 
 	_setEventListeners(config, formElement) {
 		const inputList = Array.from(
 			formElement.querySelectorAll(config.inputSelector)
 		);
-		
+		const button = formElement.querySelector(config.submitButtonSelector);
 		inputList.forEach((input) => {
 			input.addEventListener("input", () => {
 				this._checkInputValidity(config, formElement, input);
-				this._toggleButtonState(inputList);
+				this._toggleButtonState(config, inputList, button);
 			});
 		});
+
+		// formElement.addEventListener('submit', event => {
+		//   event.preventDefault();
+		//   const inputsValue = this._getInputsValue(inputList);
+
+		//   callbackSubmit(inputsValue);
+		//   this._disableButton(config.inactiveButtonClass, button);
+		// });
 	}
 }

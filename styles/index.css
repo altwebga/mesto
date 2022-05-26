@@ -59,6 +59,6 @@
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__error/popup__error.css);
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
-@import url(../blocks/popup/_show-photo/popup_show-photo.css);
+@import url(../blocks/popup/_show-card/popup_show-card.css);
 
 @import url(../vendor/preload.css);
