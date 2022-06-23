@@ -1,0 +1,19 @@
+{
+  "name": "yandex_practikum",
+  "version": "0.0.1",
+  "description": "project mesto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altwebga/mesto.git"
+  },
+  "author": "Konstantin Kuznecov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/altwebga/mesto/issues"
+  },
+  "homepage": "https://github.com/altwebga/mesto#readme"
+}
