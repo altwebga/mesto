@@ -1,7 +1,7 @@
 //импорт
-import initialCards from "./initialCards.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+import initialCards from "../utils/initialCards.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 import {
   galleryList,
   configFormValidate,
@@ -17,7 +17,7 @@ import {
 	popupAdd,
 	formPopupAdd,
 	formPopupEdit
-} from "./constants.js";
+} from "../utils/constants.js";
 // отключаем transition при загрузки страницы
 const initPreload = () => {
 	document.addEventListener('DOMContentLoaded', () => {
