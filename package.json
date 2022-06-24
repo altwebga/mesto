@@ -4,9 +4,9 @@
   "description": "Сервис Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки. [Ссылка на проект](https://altwebga.github.io/mesto/)",
   "main": "index.js",
   "scripts": {
-		"build": "rd /s /q dist && webpack",
+		"build": "webpack --mode production",
 		"dev": "webpack serve"
-	} ,
+	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/altwebga/mesto.git"
