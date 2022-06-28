@@ -168,7 +168,6 @@ const initSubmitHandlerFormEditProfile = (formElement, options) => {
 
 
 
-
 initPreload();
 
 const popupWithImage = new PopupWithImage('.popup_show-photo');
