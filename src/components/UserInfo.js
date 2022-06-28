@@ -4,21 +4,24 @@
 Содержит публичный метод getUserInfo, который возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
 Содержит публичный метод setUserInfo, который принимает новые данные пользователя и добавляет их на страницу.
 */
-export default class UserInfo {
-  constructor(user) {
-    this._name = user.name;
-    this._info = user.info;
+export class UserInfo {
+	_profileNameNode = null;
+	_profileProfessionNode = null;
+
+  constructor({ profileNameSelector, profileProfessionSelector }) {
+		this._profileNameNode = document.querySelector(profileNameSelector);
+		this._profileProfessionNode = document.querySelector(profileProfessionSelector);
   }
 
   getUserInfo() {
     return {
-      name: this._name.textContent,
-      info: this._info.textContent,
+      name: this._profileNameNode.textContent,
+      info: this._profileProfessionNode.textContent,
     };
   }
 
   setUserInfo(data) {
-    this._name.textContent = data.name;
-    this._info.textContent = data.info;
+    this._profileNameNode.textContent = data.name;
+    this._profileProfessionNode.textContent = data.info;
   }
 }

@@ -5,9 +5,8 @@
 */
 
 import { openPopup } from "../pages/index.js";
-import { popupShow } from "../utils/constants.js";
 
-export default class Card {
+export class Card {
 	_name = null;
 	_link = null;
 	_cardSelector = null;
@@ -16,17 +15,13 @@ export default class Card {
 	_cardImage = null;
 	_cardButtonLike = null;
 	_cardButtonTrash = null;
-	_popupShow = null;
-	_popupImage = null;
-	_popupText = null;
+	_handleCardClick = null;
 
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
-		this._popupShow = popupShow;
-		this._popupImage = this._popupShow.querySelector('.popup__image');
-		this._popupText = this._popupShow.querySelector('.popup__caption');
+		this._handleCardClick = handleCardClick;
   }
 
   //Получение разметки из HTML и клонирование элемента
@@ -64,10 +59,7 @@ export default class Card {
 
   //открытие фото
   _openShowPhotoPopup = () => {
-    this._popupText.textContent = this._name;
-    this._popupImage.src = this._link;
-    this._popupImage.alt = this._name;
-    openPopup(this._popupShow);
+		this._handleCardClick(this._name, this._link);
   }
   // Слушатели Card
 

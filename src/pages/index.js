@@ -1,8 +1,11 @@
 //импорт
 import './index.css';
-import initialCards from "../utils/initialCards.js";
-import Card from "../components/Card.js";
-import FormValidator from "../components/FormValidator.js";
+import {initialCards} from '../utils/initialCards.js';
+import {Card} from '../components/Card.js';
+import {FormValidator} from '../components/FormValidator.js';
+import {Section} from '../components/Section.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
+import {PopupWithForm} from '../components/PopupWithForm.js';
 import {
   galleryList,
   configFormValidate,
@@ -19,12 +22,24 @@ import {
 	formPopupAdd,
 	formPopupEdit
 } from "../utils/constants.js";
-// отключаем transition при загрузки страницы
+// отключаем transition при загрузке страницы
 const initPreload = () => {
 	document.addEventListener('DOMContentLoaded', () => {
 		document.body.classList.remove('preload');
 	});
 };
+
+// вставлять в попап картинку с src изображения и подписью к картинке
+const handleCardClick = (name, link) => {
+  popupWithImage.open(name, link);
+};
+
+// функция создания элемента
+// const createCard = (item) => {
+//   const card = new Card(item, '#card-template', handleCardClick);
+//   const cardElement = card.createCard();
+//   return cardElement;
+// };
 
 const initCards = (initialCards) => {
   initialCards.forEach(initCard => {
@@ -60,7 +75,7 @@ export const openPopup = (popup) => {
   document.addEventListener("keydown", clickEsc);
   popup.addEventListener("mousedown", clickOverlay);
 	popupButtonClose.addEventListener('click', handlerClickPopupButtonClose);
-}; 
+};
 
 const closePopup = (popup) => {
 	const popupButtonClose = popup.querySelector('.popup__button-close');
@@ -96,12 +111,12 @@ const initSubmitHandlerFormAddCard = (formElement, options) => {
 	});
 };
 
-function generateCard(name, link) {
-	const card = new Card({ name, link }, "#card-template");
+const generateCard = (name, link) => {
+	const card = new Card({ name, link }, "#card-template", handleCardClick);
 	const cardNode = card.generateCard();
 
 	return cardNode;
-}
+};
 
 const initEventListenersPopupAddCard = (buttonAddCard, popupAdd) => {
 	buttonAddCard.addEventListener("click", () => {
@@ -148,7 +163,17 @@ const initSubmitHandlerFormEditProfile = (formElement, options) => {
 
 };
 
+
+
+
+
+
+
+
 initPreload();
+
+const popupWithImage = new PopupWithImage('.popup_show-photo');
+popupWithImage.setEventListeners();
 
 //Валидации формы редактирования профиля
 const formValidatorEditProfile = new FormValidator(configFormValidate, popupFormEditProfile);

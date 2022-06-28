@@ -1,4 +1,4 @@
-export default class FormValidator {
+export class FormValidator {
 	_config = null;
 	_formElement = null;
 	_buttonSubmit =null;
