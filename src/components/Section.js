@@ -13,11 +13,11 @@ export class Section {
 	_selector = null;
 	_container = null;
 
-  constructor({ items, renderer }, selector) {
+  constructor({ items, renderer, selector }) {
 		this._items = items;
 		this._renderer = renderer;
 		this._selector = selector;
-		this._container = document.querySelector(this.selector);
+		this._container = document.querySelector(this._selector);
 	}
 
   renderItems() {

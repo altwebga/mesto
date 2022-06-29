@@ -6,6 +6,7 @@ import {FormValidator} from '../components/FormValidator.js';
 import {Section} from '../components/Section.js';
 import {PopupWithImage} from '../components/PopupWithImage.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
+import {UserInfo} from '../components/UserInfo.js';
 import {
   galleryList,
   configFormValidate,
@@ -16,12 +17,9 @@ import {
 	inputProfession,
 	profileName,
 	profileProfession,
-	popupEdit,
 	buttonAddCard,
-	popupAdd,
-	formPopupAdd,
-	formPopupEdit
 } from "../utils/constants.js";
+
 // отключаем transition при загрузке страницы
 const initPreload = () => {
 	document.addEventListener('DOMContentLoaded', () => {
@@ -34,83 +32,6 @@ const handleCardClick = (name, link) => {
   popupWithImage.open(name, link);
 };
 
-// функция создания элемента
-// const createCard = (item) => {
-//   const card = new Card(item, '#card-template', handleCardClick);
-//   const cardElement = card.createCard();
-//   return cardElement;
-// };
-
-const initCards = (initialCards) => {
-  initialCards.forEach(initCard => {
-		const { name, link } = initCard;
-		const cardNode = generateCard(name, link);
-		galleryList.prepend(cardNode);
-  });
-}
-
-const clickEsc = (evt) => {
-  if (evt.key === "Escape") {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
-  }
-};
-
-const clickOverlay = (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.currentTarget);
-  }
-};
-
-const handlerClickPopupButtonClose = (evt) => {
-	const popup = evt.target.closest('.popup');
-	closePopup(popup);
-};
-
-
-export const openPopup = (popup) => {
-	const popupButtonClose = popup.querySelector('.popup__button-close');
-
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", clickEsc);
-  popup.addEventListener("mousedown", clickOverlay);
-	popupButtonClose.addEventListener('click', handlerClickPopupButtonClose);
-};
-
-const closePopup = (popup) => {
-	const popupButtonClose = popup.querySelector('.popup__button-close');
-
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", clickEsc);
-  popup.removeEventListener("mousedown", clickOverlay);
-	popupButtonClose.removeEventListener('click', handlerClickPopupButtonClose);
-};
-
-const initSubmitHandlerFormAddCard = (formElement, options) => {
-
-	const {
-		galleryList,
-		popupAdd,
-		formValidatorAddPhoto,
-	} = options;
-
-	const inputTitle = formElement.querySelector('.popup__input-title');
-	const inputLink = formElement.querySelector('.popup__input-link');
-
-	formElement.addEventListener('submit', (event) => {
-		event.preventDefault();
-
-		const name = inputTitle.value;
-		const link = inputLink.value;
-		const cardNode = generateCard(name, link);
-
-		formElement.reset();
-		formValidatorAddPhoto.disableButton();
-		galleryList.prepend(cardNode);
-		closePopup(popupAdd);
-	});
-};
-
 const generateCard = (name, link) => {
 	const card = new Card({ name, link }, "#card-template", handleCardClick);
 	const cardNode = card.generateCard();
@@ -118,13 +39,13 @@ const generateCard = (name, link) => {
 	return cardNode;
 };
 
-const initEventListenersPopupAddCard = (buttonAddCard, popupAdd) => {
+const initEventListenersPopupAddCard = (buttonAddCard, popupAddCardWithForm) => {
 	buttonAddCard.addEventListener("click", () => {
-		openPopup(popupAdd);
+		popupAddCardWithForm.open();
 	});
 };
 
-const initEventListenersPopupEditProfile = (buttonEdit, popupEdit, options) => {
+const initEventListenersPopupEditProfile = (buttonEdit, popupEditProfileWithForm, options) => {
 
 	const {
 		inputName,
@@ -136,33 +57,9 @@ const initEventListenersPopupEditProfile = (buttonEdit, popupEdit, options) => {
 	buttonEdit.addEventListener("click", () => {
 		inputName.value = profileName.textContent;
   	inputProfession.value = profileProfession.textContent;
-		openPopup(popupEdit);
+		popupEditProfileWithForm.open();
 	});
 };
-
-const initSubmitHandlerFormEditProfile = (formElement, options) => {
-
-	const inputName = formElement.querySelector('.popup__input-name');
-	const inputProfession = formElement.querySelector('.popup__input-profession');
-
-	const {
-		profileName,
-		profileProfession,
-		popupEdit,
-		formValidatorEditProfile
-	} = options;
-
-	formElement.addEventListener('submit', (event) => {
-		event.preventDefault();
-
-		profileName.textContent = inputName.value;
-		profileProfession.textContent = inputProfession.value;
-		formValidatorEditProfile.disableButton();
-		closePopup(popupEdit);
-	});
-
-};
-
 
 
 
@@ -170,8 +67,21 @@ const initSubmitHandlerFormEditProfile = (formElement, options) => {
 
 initPreload();
 
+const userInfo = new UserInfo('.profile__name', '.profile__profession');
+
 const popupWithImage = new PopupWithImage('.popup_show-photo');
 popupWithImage.setEventListeners();
+
+const popupEditProfileWithForm = new PopupWithForm('.popup_edit-profile', ({name, profession}) => {
+	userInfo.setUserInfo({ name: name, info: profession });
+});
+popupEditProfileWithForm.setEventListeners();
+
+const popupAddCardWithForm = new PopupWithForm('.popup_add-photo', ({title, link}) => {
+	const cardNode = generateCard(title, link);
+	galleryList.prepend(cardNode);
+});
+popupAddCardWithForm.setEventListeners();
 
 //Валидации формы редактирования профиля
 const formValidatorEditProfile = new FormValidator(configFormValidate, popupFormEditProfile);
@@ -180,26 +90,17 @@ formValidatorEditProfile.enableValidation();
 const formValidatorAddPhoto = new FormValidator(configFormValidate, popupFormAddPhoto);
 formValidatorAddPhoto.enableValidation();
 
-initCards(initialCards);
+const section = new Section({items: initialCards, renderer: ({name, link}) => {
+	const cardNode = generateCard(name, link);
+	section.addItem(cardNode);
+}, selector: '.gallery__list' });
+section.renderItems();
 
-initEventListenersPopupAddCard(buttonAddCard, popupAdd);
-initSubmitHandlerFormAddCard(formPopupAdd, {
-	galleryList,
-	popupAdd,
-	formValidatorAddPhoto,
-	configFormValidate
-});
+initEventListenersPopupAddCard(buttonAddCard, popupAddCardWithForm);
 
-initEventListenersPopupEditProfile(buttonEdit, popupEdit, {
+initEventListenersPopupEditProfile(buttonEdit, popupEditProfileWithForm, {
 	inputName,
 	inputProfession,
 	profileName,
 	profileProfession
-});
-initSubmitHandlerFormEditProfile(formPopupEdit, {
-	profileName,
-	profileProfession,
-	popupEdit,
-	configFormValidate,
-	formValidatorEditProfile
 });

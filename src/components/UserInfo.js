@@ -8,7 +8,7 @@ export class UserInfo {
 	_profileNameNode = null;
 	_profileProfessionNode = null;
 
-  constructor({ profileNameSelector, profileProfessionSelector }) {
+  constructor(profileNameSelector, profileProfessionSelector) {
 		this._profileNameNode = document.querySelector(profileNameSelector);
 		this._profileProfessionNode = document.querySelector(profileProfessionSelector);
   }
@@ -20,8 +20,8 @@ export class UserInfo {
     };
   }
 
-  setUserInfo(data) {
-    this._profileNameNode.textContent = data.name;
-    this._profileProfessionNode.textContent = data.info;
+  setUserInfo({name, info}) {
+    this._profileNameNode.textContent = name;
+    this._profileProfessionNode.textContent = info;
   }
 }

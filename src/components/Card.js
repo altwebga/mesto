@@ -1,10 +1,8 @@
 /*
-Свяжите класс Card c попапом. 
-Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. 
+Свяжите класс Card c попапом.
+Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick.
 Эта функция должна открывать попап с картинкой при клике на карточку.
 */
-
-import { openPopup } from "../pages/index.js";
 
 export class Card {
 	_name = null;
