@@ -13,11 +13,13 @@ export class PopupWithForm extends Popup {
 	_form = null;
 	_callback = null;
 	_inputValues = null;
+	_popupButtonSave = null;
 
 	constructor(selector, callback) {
 		super(selector);
 		this._callback = callback;
 		this._form = this._popup.querySelector('.popup__form');
+		this._popupButtonSave = this._popup.querySelector('.popup__button-save');
 		this._inputsList = this._form.querySelectorAll('.popup__input');
 	}
 
@@ -29,6 +31,7 @@ export class PopupWithForm extends Popup {
 	close() {
 		super.close();
 		this._form.reset();
+		this._disableButton();
 	}
 
 	_getInputValues() {
@@ -45,5 +48,10 @@ export class PopupWithForm extends Popup {
 		event.preventDefault();
 		this._callback(this._getInputValues());
 		this.close();
+	}
+
+	_disableButton() {
+		this._popupButtonSave.classList.add('popup__button-save_disabled');
+		this._popupButtonSave.disabled = true;
 	}
 }

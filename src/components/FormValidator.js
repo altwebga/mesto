@@ -12,7 +12,7 @@ export class FormValidator {
 	}
 
 	enableValidation() {
-		this._setEventListeners(this._config, this._formElement);
+		this._setEventListeners(this._config, this._formElement, this._inputList);
 	}
 
 	_setInputValid(config, errorMessage, input) {
@@ -56,11 +56,11 @@ export class FormValidator {
 		}
 	}
 
-	_setEventListeners(config, formElement) {
-		this._inputList.forEach((input) => {
+	_setEventListeners(config, formElement, inputList) {
+		inputList.forEach((input) => {
 			input.addEventListener("input", () => {
 				this._checkInputValidity(config, formElement, input);
-				this._toggleButtonState(this._inputList);
+				this._toggleButtonState(inputList);
 			});
 		});
 	}
