@@ -21,4 +21,4 @@
 
 :white_check_mark: Лайки
 
-:black_square_button: Отправка измененеий на сервер
+:white_check_mark: Отправка измененеий на сервер
