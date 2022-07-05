@@ -1,57 +1,56 @@
-/*
-Создайте класс PopupWithForm, который наследует от Popup. Этот класс:
-Кроме селектора попапа принимает в конструктор колбэк сабмита формы.
-Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
-Перезаписывает родительский метод setEventListeners. Метод setEventListeners класса PopupWithForm должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы.
-Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться.
-Для каждого попапа создавайте свой экземпляр класса PopupWithForm.
-*/
-
-import {Popup} from "./Popup.js";
+import Popup from "./Popup";
 
 export class PopupWithForm extends Popup {
-	_form = null;
-	_callback = null;
-	_inputValues = null;
-	_popupButtonSave = null;
+  constructor(popupSelector, submitListener) {
+    super(popupSelector);
+    this.submitButton = this._popup.querySelector(".popup__button");
+    this.buttonText = this.submitButton.textContent;
+    this.submitListener = submitListener;
+    this.inputs = this._popup.querySelectorAll("input");
+    this.form = this._popup.querySelector("form");
+    this.inputsValue = {};
+  }
 
-	constructor(selector, callback) {
-		super(selector);
-		this._callback = callback;
-		this._form = this._popup.querySelector('.popup__form');
-		this._popupButtonSave = this._popup.querySelector('.popup__button-save');
-		this._inputsList = this._form.querySelectorAll('.popup__input');
-	}
+  getInputValues() {
+    this.inputs.forEach((item) => {
+      this.inputsValue[item.name] = item.value;
+    });
 
-	setEventListeners() {
-		super.setEventListeners();
-		this._form.addEventListener('submit', this._handlerSubmitPopupForm);
-	}
+    return this.inputsValue;
+  }
 
-	close() {
-		super.close();
-		this._form.reset();
-		this._disableButton();
-	}
+  setEventListeners() {
+    super.setEventListeners();
 
-	_getInputValues() {
-		this._inputValues = {};
+    this._formSubmitListener();
+  }
 
-		for (const input of this._inputsList) {
-			this._inputValues[input.name] = input.value;
-		}
+  _formSubmitListener() {
+    this.form.addEventListener("submit", (event) => {
+      this.submitListener(event);
+      this.submitButton.textContent = "Сохранение...";
+    });
+  }
 
-		return this._inputValues;
-	}
+  close() {
+    super.close();
+    this._resetForm();
+  }
 
-	_handlerSubmitPopupForm = (event) => {
-		event.preventDefault();
-		this._callback(this._getInputValues());
-		this.close();
-	}
+  open() {
+    super.open();
+    this.setDefaultText();
+  }
 
-	_disableButton() {
-		this._popupButtonSave.classList.add('popup__button-save_disabled');
-		this._popupButtonSave.disabled = true;
-	}
+  _resetForm() {
+    this.form.reset();
+  }
+
+  setErrorText() {
+    this.submitButton.textContent = "Что-то пошло не так...";
+  }
+
+  setDefaultText() {
+    this.submitButton.textContent = this.buttonText;
+  }
 }

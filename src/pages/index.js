@@ -1,106 +1,220 @@
-//импорт
-import './index.css';
-import {initialCards} from '../utils/initialCards.js';
-import {Card} from '../components/Card.js';
-import {FormValidator} from '../components/FormValidator.js';
-import {Section} from '../components/Section.js';
-import {PopupWithImage} from '../components/PopupWithImage.js';
-import {PopupWithForm} from '../components/PopupWithForm.js';
-import {UserInfo} from '../components/UserInfo.js';
+import "./index.css";
 import {
-  galleryList,
-  configFormValidate,
-  popupFormEditProfile,
-  popupFormAddPhoto,
-	buttonEdit,
-	inputName,
-	inputProfession,
-	profileName,
-	profileProfession,
-	buttonAddCard,
+  validatorSettings,
+  nameInput,
+  descriptionInput,
 } from "../utils/constants.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Section } from "../components/Section.js";
+import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api";
 
 // отключаем transition при загрузке страницы
 const initPreload = () => {
-	document.addEventListener('DOMContentLoaded', () => {
-		document.body.classList.remove('preload');
-	});
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.remove("preload");
+  });
 };
 
-// вставлять в попап картинку с src изображения и подписью к картинке
-const handleCardClick = (name, link) => {
-  popupWithImage.open(name, link);
-};
+const popupDelete = new PopupWithConfirmation(".popup_delete", (id, card) => {
+  api
+    .deleteCard(id)
+    .then((res) => {
+      popupDelete.close();
+      card.deleteCard();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupDelete.setDefaultText();
+    });
+});
+popupDelete.setEventListeners();
 
-const generateCard = (name, link) => {
-	const card = new Card({ name, link }, "#card-template", handleCardClick);
-	const cardNode = card.generateCard();
+const api = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-44",
+  headers: {
+    authorization: "42e01300-6b25-4c03-8697-88df9fb36e11",
+    "Content-Type": "application/json",
+  },
+});
 
-	return cardNode;
-};
+const buttonOpenProfile = document.querySelector(".profile__edit"),
+  buttonEditPhoto = document.querySelector(".profile__avatar-hover"),
+  cardOpenButton = document.querySelector(".profile__button");
 
-const initEventListenersPopupAddCard = (buttonAddCard, popupAddCardWithForm) => {
-	buttonAddCard.addEventListener("click", () => {
-		popupAddCardWithForm.open();
-	});
-};
+const formAddCards = document.querySelector(".popup__form_add_card"),
+  formEditProfile = document.querySelector(".popup__form_edit_profile"),
+  formChangePhoto = document.querySelector(".popup__form_change-photo");
 
-const initEventListenersPopupEditProfile = (buttonEdit, popupEditProfileWithForm, options) => {
-
-	const {
-		inputName,
-		inputProfession,
-		profileName,
-		profileProfession
-	} = options;
-
-	buttonEdit.addEventListener("click", () => {
-		inputName.value = profileName.textContent;
-  	inputProfession.value = profileProfession.textContent;
-		popupEditProfileWithForm.open();
-	});
-};
-
-
-
-
-
-initPreload();
-
-const userInfo = new UserInfo('.profile__name', '.profile__profession');
-
-const popupWithImage = new PopupWithImage('.popup_show-photo');
+const popupWithImage = new PopupWithImage(".popup_img");
 popupWithImage.setEventListeners();
 
-const popupEditProfileWithForm = new PopupWithForm('.popup_edit-profile', ({name, profession}) => {
-	userInfo.setUserInfo({ name: name, info: profession });
+let userId;
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([info, initialCards]) => {
+    userId = info._id;
+    userInfo.setUserInfo({
+      name: info.name,
+      descr: info.about,
+      avatar: info.avatar,
+    });
+
+    section.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+function createNewCard(item) {
+  const card = new Card(
+    userId,
+    item,
+    ".card-template",
+    () => {
+      popupWithImage.open(item);
+    },
+    () => {
+      popupDelete.open(card);
+    },
+    () => {
+      api
+        .likeCard(item._id)
+        .then((res) => {
+          card.setLikes(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    () => {
+      api
+        .deleteLikeCard(item._id)
+        .then((res) => {
+          card.setLikes(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    () => {
+      popupDelete.formListener(card.deleteCard);
+    }
+  );
+
+  return card.getCard();
+}
+
+const section = new Section(
+  {
+    renderer: (item) => {
+      section.addItem(createNewCard(item));
+    },
+  },
+  ".card"
+);
+initPreload();
+const userInfo = new UserInfo({
+  name: ".profile__name",
+  description: ".profile__profession",
+  avatar: ".profile__avatar",
 });
-popupEditProfileWithForm.setEventListeners();
 
-const popupAddCardWithForm = new PopupWithForm('.popup_add-photo', ({title, link}) => {
-	const cardNode = generateCard(title, link);
-	galleryList.prepend(cardNode);
+const cardValidator = new FormValidator(validatorSettings, formAddCards);
+
+cardValidator.enableValidation();
+
+const popupCards = new PopupWithForm(".popup_edit_card", (event) => {
+  event.preventDefault();
+
+  api
+    .postNewCard(popupCards.getInputValues())
+    .then((res) => {
+      section.addItem(createNewCard(res));
+      popupCards.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupCards.setDefaultText();
+    });
 });
-popupAddCardWithForm.setEventListeners();
 
-//Валидации формы редактирования профиля
-const formValidatorEditProfile = new FormValidator(configFormValidate, popupFormEditProfile);
-formValidatorEditProfile.enableValidation();
+popupCards.setEventListeners();
 
-const formValidatorAddPhoto = new FormValidator(configFormValidate, popupFormAddPhoto);
-formValidatorAddPhoto.enableValidation();
+const popupProfile = new PopupWithForm(".popup_edit_profile", (event) => {
+  event.preventDefault();
 
-const section = new Section({items: initialCards, renderer: ({name, link}) => {
-	const cardNode = generateCard(name, link);
-	section.addItem(cardNode);
-}, selector: '.gallery__list' });
-section.renderItems();
+  const data = popupProfile.getInputValues();
 
-initEventListenersPopupAddCard(buttonAddCard, popupAddCardWithForm);
+  api
+    .sendProfileInfo(data.name, data.descr)
+    .then((res) => {
+      userInfo.setUserInfo({ name: res.name, descr: res.about });
+      popupProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupProfile.setDefaultText();
+    });
+});
 
-initEventListenersPopupEditProfile(buttonEdit, popupEditProfileWithForm, {
-	inputName,
-	inputProfession,
-	profileName,
-	profileProfession
+popupProfile.setEventListeners();
+
+const popupPhoto = new PopupWithForm(".popup_edit_photo", (event) => {
+  event.preventDefault();
+
+  const data = popupPhoto.getInputValues();
+
+  api
+    .sendProfilePhoto(data.link)
+    .then((res) => {
+      userInfo.setUserInfo({ avatar: res.avatar });
+      popupPhoto.close();
+    })
+    .catch((err) => {
+      console.log(err);
+      popupPhoto.setErrorText();
+    });
+});
+
+popupPhoto.setEventListeners();
+
+const profileValidator = new FormValidator(validatorSettings, formEditProfile);
+
+profileValidator.enableValidation();
+
+buttonOpenProfile.addEventListener("click", () => {
+  popupProfile.open();
+  const data = userInfo.getUserInfo();
+
+  nameInput.value = data.name;
+  descriptionInput.value = data.description;
+
+  profileValidator.resetValidation();
+});
+
+cardOpenButton.addEventListener("click", () => {
+  cardValidator.resetValidation();
+
+  popupCards.open();
+});
+
+const photoValidator = new FormValidator(validatorSettings, formChangePhoto);
+
+photoValidator.enableValidation();
+
+buttonEditPhoto.addEventListener("click", () => {
+  photoValidator.resetValidation();
+
+  popupPhoto.open();
 });
