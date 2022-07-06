@@ -65,8 +65,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       descr: info.about,
       avatar: info.avatar,
     });
-
+    initialCards.reverse();
     section.renderItems(initialCards);
+  
   })
   .catch((err) => {
     console.log(err);

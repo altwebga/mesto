@@ -1,5 +1,5 @@
 .card__text {
   display: flex;
   justify-content: space-between;
-  margin: 23px 20px 22px;
+  padding: 23px 20px 22px;
 }

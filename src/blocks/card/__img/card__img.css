@@ -6,3 +6,6 @@
   -o-object-fit: cover;
   object-fit: cover;
 }
+.card__img:hover {
+  opacity: 0.8;
+}
