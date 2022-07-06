@@ -9,8 +9,8 @@
     border: none;
     align-self: center;
     transition: all 0.5s;
+		z-index: 3;
   }
   .card__delete:hover {
     opacity: 0.6;
   }
-  
